@@ -7,7 +7,19 @@ My personal template based colour palette generator. Currently using the Python 
 ```bash
 python -m venv venv
 source venv/bin/activate
-pip install -e .
+pip install -r requirements.txt
+```
+
+### Usage without installing
+```bash
+python -m color_generator.cli [ARGS]
+```
+
+### Installing
+Make sure you have `pipx` first
+```bash
+pipx install .
+iroha [ARGS]
 ```
 
 ## Usage
@@ -36,4 +48,3 @@ iroha from-color "rgba(65,129,238,255)"
 # Save to file
 iroha from-color "#4181EE" --output colors.json
 ```
-

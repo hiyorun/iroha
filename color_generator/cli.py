@@ -14,10 +14,12 @@ app = typer.Typer(help="Iroha CLI: Generate color schemes from images or colors.
 def from_image(
     image_path: Path = typer.Argument(..., exists=True, help="Path to the image file."),
     quality: int = typer.Option(
-        1,
+        100,
         "--quality",
         "-q",
-        help="Extraction quality (1 = best, higher = faster but lower quality).",
+        min=1,
+        max=100,
+        help="Extraction quality (1 = fastest, 100 = best).",
     ),
     num_colors: int = typer.Option(
         128, "--num-colors", "-n", help="Number of colors to extract."
@@ -47,8 +49,9 @@ def from_image(
     """
     Generate a color scheme from an image.
     """
+    sampling_rate = 101 - quality
     generator = get_backend(backend)
-    generator.configure(quality=quality, num_colors=num_colors)
+    generator.configure(quality=sampling_rate, num_colors=num_colors)
 
     mode: Theme = "light"
     if dark_mode:
@@ -171,3 +174,7 @@ def from_color(
 
 def main():
     app()
+
+
+if __name__ == "__main__":
+    main()

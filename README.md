@@ -2,6 +2,8 @@
 
 My personal template based colour palette generator. Currently using the Python implementation of the [Material Color Utilities by T-Dynamos](https://github.com/T-Dynamos/materialyoucolor-python). Can be extended in the future if I feel like it.
 
+This is a sh\*tty rewrite of my original, already sh\*tty C++ code at [iroha-cpp](https://github.com/hiyorun/iroha-cpp)
+
 ## Building
 
 ```bash

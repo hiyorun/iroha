@@ -1,6 +1,5 @@
 from abc import ABC, abstractmethod
 from pathlib import Path
-from typing import Tuple
 from ..color_types import ColorScheme, ColorSchemes, Theme
 
 

@@ -22,6 +22,6 @@ def jinja_render_template(
 
     if output_path:
         output_path.write_text(rendered)
-        print(f"✅ Template rendered to {output_path}")
+        print(f"Template rendered to {output_path}")
     else:
         print(rendered)

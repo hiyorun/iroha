@@ -1,3 +1,4 @@
+import os
 from pathlib import Path
 from typing import Optional
 
@@ -12,7 +13,7 @@ app = typer.Typer(help="Iroha CLI: Generate color schemes from images or colors.
 
 @app.command("from-image")
 def from_image(
-    image_path: Path = typer.Argument(..., exists=True, help="Path to the image file."),
+    image_path: str = typer.Argument(..., exists=True, help="Path to the image file."),
     quality: int = typer.Option(
         100,
         "--quality",
@@ -56,26 +57,32 @@ def from_image(
     mode: Theme = "light"
     if dark_mode:
         mode = "dark"
-    schemes = generator.generate_from_image(mode, image_path)
+    schemes = generator.generate_from_image(mode, Path(os.path.expandvars(image_path)))
     if template_map:
         config = load_template_config(template_map)
         for item in config:
-            template_path = Path(item["template"])
+            template_path = Path(os.path.expandvars(item["template"]))
             output_path = item.get("output")
             output_light_path = item.get("output_light")
             output_dark_path = item.get("output_dark")
 
             if output_path:
                 jinja_render_template(
-                    template_path, schemes["default"], Path(output_path)
+                    template_path,
+                    schemes["default"],
+                    Path(os.path.expandvars(output_path)),
                 )
             if output_light_path:
                 jinja_render_template(
-                    template_path, schemes["light"], Path(output_light_path)
+                    template_path,
+                    schemes["light"],
+                    Path(os.path.expandvars(output_light_path)),
                 )
             if output_dark_path:
                 jinja_render_template(
-                    template_path, schemes["dark"], Path(output_dark_path)
+                    template_path,
+                    schemes["dark"],
+                    Path(os.path.expandvars(output_dark_path)),
                 )
         return
     if template:
